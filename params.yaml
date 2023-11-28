@@ -1,0 +1,21 @@
+data:
+  dataset_file_path: ./Dataset/IMDB_Dataset.csv
+  test_split: 0.3
+  train_csv_safe_path: ./Outputs/train.csv
+  test_csv_safe_path: ./Outputs/test.csv
+
+features:
+  vectorizer: count-vectorizer
+  train_input_safe_path: ./Outputs/train.joblib
+  test_input_safe_path: ./Outputs/test.joblib
+
+train:
+  penalty: l2
+  C: 1.0
+  solver: lbfgs
+  max_iter: 1000
+  model_path: ./Outputs/model.joblib
+
+evaluate:
+  matrix: accuracy
+  result_save_path: ./Outputs/result.yaml

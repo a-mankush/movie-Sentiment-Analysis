@@ -1,0 +1,45 @@
+stages:
+  prepare_data:
+    cmd: python ./prepare_data.py
+    deps:
+      - ./prepare_data.py
+      - ./Dataset/IMDB_Dataset.csv
+    params:
+      - data
+    outs:
+      - ./Outputs/train.csv
+      - ./Outputs/test.csv
+
+
+  make_feature:
+    cmd: python ./make_feature.py
+    deps:
+      - ./make_feature.py
+      - ./Outputs/train.csv
+      - ./Outputs/test.csv
+    params:
+      - features
+    outs:
+      - ./Outputs/train.joblib
+      - ./Outputs/test.joblib
+
+  train:
+    cmd: python ./train.py
+    deps:
+      - ./train.py
+      - ./Outputs/train.joblib
+      - ./Outputs/train.csv
+    params:
+      - train
+    outs:
+      - ./Outputs/model.joblib
+
+  evaluate:
+    cmd: python ./evaluate.py
+    deps:
+      - ./evaluate.py
+      - ./Outputs/test.joblib
+      - ./Outputs/test.csv
+      - ./Outputs/model.joblib
+    outs:
+      - ./Outputs/result.yaml
